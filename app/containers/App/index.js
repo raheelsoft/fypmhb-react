@@ -6,12 +6,12 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React from 'react';
+import React from "react";
 
 export default function App() {
   return (
     <div>
-      <h1>Hello to react Boiler Plate</h1>
+      <h1>Hello to MHB</h1>
     </div>
   );
 }
