@@ -1,53 +1,53 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { keyframes } from "styled-components";
 
 const circleFadeDelay = keyframes`
-  0%,
-  39%,
-  100% {
-    opacity: 0;
-  }
-
-  40% {
-    opacity: 1;
-  }
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
 `;
 
-const Circle = props => {
+const Circle = (props) => {
   const CirclePrimitive = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    ${props.rotate &&
-      `
-      -webkit-transform: rotate(${props.rotate}deg);
-      -ms-transform: rotate(${props.rotate}deg);
-      transform: rotate(${props.rotate}deg);
-    `} &:before {
-      content: '';
+    animation: ${circleFadeDelay} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    -webkit-transform-origin: 40px 40px;
+    -ms-transform-origin: 40px 40px;
+    transform-origin: 40px 40px;
+    &:after {
+      content: " ";
       display: block;
-      margin: 0 auto;
-      width: 15%;
-      height: 15%;
-      background-color: #999;
-      border-radius: 100%;
-      animation: ${circleFadeDelay} 1.2s infinite ease-in-out both;
-      ${props.delay &&
-        `
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #5d1049;
+      margin: -4px 0 0 -4px;
+    }
+    ${props.delay &&
+      `
+      &:nth-child(${props.child}){
         -webkit-animation-delay: ${props.delay}s;
-        animation-delay: ${props.delay}s;
-      `};
+        animation-delay: ${props.delay}s;}
+      };
+      &:nth-child(${props.child})&:after {
+      top: ${props.top}px;
+      left: ${props.left}px;
+      `}
     }
   `;
   return <CirclePrimitive />;
 };
 
 Circle.propTypes = {
-  delay: PropTypes.number,
-  rotate: PropTypes.number,
+  delay: PropTypes.number.isRequired,
+  rotate: PropTypes.number.isRequired,
+  child: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
+  left: PropTypes.number.isRequired,
 };
 
 export default Circle;
