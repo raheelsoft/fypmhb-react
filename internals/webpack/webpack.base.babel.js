@@ -4,19 +4,41 @@
 
 const path = require("path");
 const webpack = require("webpack");
+const dotenv = require("dotenv");
+const fs = require("fs");
+
+dotenv.config();
+
+const envList = {};
+
+try {
+  const envFile = fs.readFileSync(".env");
+  const envConfig = dotenv.parse(envFile);
+  for (const i in envConfig) {
+    envList[k] = `${process.env[k]}`;
+  }
+} catch (error) {
+  console.error(
+    ".env file not found. You must have a .env file in root directory.",
+    error
+  );
+  return;
+}
+
+const appName = process.env.APP_NAME;
 
 // dynamic-custom-theme --start
 const AntDesignThemePlugin = require("antd-theme-webpack-plugin");
 
 console.log(
   "variables.less file path: ",
-  path.join(__dirname, `../../app/styles/variables.less`)
+  path.join(__dirname, `../../${appName}/styles/variables.less`)
 );
 const optionsAntdTheme = {
   antDir: path.join(__dirname, "../../node_modules/antd"),
-  stylesDir: path.join(__dirname, `../../app/styles`),
-  varFile: path.join(__dirname, `../../app/styles/variables.less`),
-  mainLessFile: path.join(__dirname, `../../app/styles/index.less`),
+  stylesDir: path.join(__dirname, `../../${appName}/styles`),
+  varFile: path.join(__dirname, `../../${appName}/styles/variables.less`),
+  mainLessFile: path.join(__dirname, `../../${appName}/styles/index.less`),
   themeVariables: ["@primary-color"],
   indexFileName: "index.html",
 };
@@ -175,11 +197,12 @@ module.exports = (options) => ({
     // drop any unreachable code.
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
+      ...envList,
     }),
     new AntDesignThemePlugin(optionsAntdTheme),
   ]),
   resolve: {
-    modules: ["node_modules", "common", "app"],
+    modules: ["node_modules", "common", appName],
     extensions: [".js", ".jsx", ".react.js"],
     mainFields: ["browser", "jsnext:main", "main"],
     alias: {
@@ -187,7 +210,7 @@ module.exports = (options) => ({
       common: path.resolve(__dirname, `../../common`),
       "@ant-design/icons/lib/dist$": path.resolve(
         __dirname,
-        `../../app/icons.js`
+        `../../${appName}/icons.js`
       ),
     },
   },
