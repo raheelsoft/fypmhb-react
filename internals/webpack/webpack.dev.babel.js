@@ -2,33 +2,32 @@
  * DEVELOPMENT WEBPACK CONFIGURATION
  */
 
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CircularDependencyPlugin = require("circular-dependency-plugin");
-require("dotenv").config();
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
+require('dotenv').config();
 
 const appName = process.env.APP_NAME;
 
-module.exports = require("./webpack.base.babel")({
-  mode: "development",
+module.exports = require('./webpack.base.babel')({
+  mode: 'development',
 
   // Add hot reloading in development
   entry: [
-    require.resolve("react-app-polyfill/ie11"),
-    "webpack-hot-middleware/client?reload=true",
+    'webpack-hot-middleware/client?reload=true',
     path.join(process.cwd(), `${appName}/app.js`), // Start with js/app.js
   ],
 
   // Don't use hashes in dev mode for better performance
   output: {
-    filename: "[name].js",
-    chunkFilename: "[name].chunk.js",
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
   },
 
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
     },
   },
 
@@ -47,7 +46,7 @@ module.exports = require("./webpack.base.babel")({
 
   // Emit a source map for easier debugging
   // See https://webpack.js.org/configuration/devtool/#devtool
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
 
   performance: {
     hints: false,
