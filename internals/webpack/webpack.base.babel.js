@@ -36,9 +36,9 @@ console.log(
 );
 const optionsAntdTheme = {
   antDir: path.join(__dirname, '../../node_modules/antd'),
-  stylesDir: path.join(__dirname, `../../${appName}/styles`),
-  varFile: path.join(__dirname, `../../${appName}/styles/variables.less`),
-  mainLessFile: path.join(__dirname, `../../${appName}/styles/index.less`),
+  stylesDir: path.join(__dirname, `../../common/styles`),
+  varFile: path.join(__dirname, `../../common/styles/variables.less`),
+  mainLessFile: path.join(__dirname, `../../common/styles/index.less`),
   themeVariables: ['@primary-color'],
   indexFileName: 'index.html',
 };
