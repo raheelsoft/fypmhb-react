@@ -12,10 +12,11 @@ module.exports = {
     'styled-components',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
+    ['import', { libraryName: 'antd', libraryDirectory: 'es' }], // `style: true` for less
   ],
   env: {
     production: {
-      only: ['app'],
+      only: ['app', 'common'],
       plugins: [
         'lodash',
         'transform-react-remove-prop-types',
