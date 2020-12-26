@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled, { keyframes } from 'styled-components';
 
 const circleFadeDelay = keyframes`
 0% {
@@ -11,7 +11,7 @@ const circleFadeDelay = keyframes`
 }
 `;
 
-const Circle = (props) => {
+const Circle = props => {
   const CirclePrimitive = styled.div`
     animation: ${circleFadeDelay} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     -webkit-transform-origin: 40px 40px;
@@ -44,7 +44,6 @@ const Circle = (props) => {
 
 Circle.propTypes = {
   delay: PropTypes.number.isRequired,
-  rotate: PropTypes.number.isRequired,
   child: PropTypes.number.isRequired,
   top: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
