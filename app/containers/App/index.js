@@ -17,7 +17,7 @@ import { getUserData, clearStorage } from 'common/utils/localStorage';
 import history from 'common/utils/history';
 import * as routes from 'common/appConstants';
 
-function App() {
+function App(props) {
   const [loading, setLoading] = useState(true);
 
   function onAppLoad() {
@@ -25,8 +25,8 @@ function App() {
 
     if (userData) {
       history.push(routes.LANDING);
-    } else if (window.location.pathname.includes(routes.authRouts[0])) {
-      history.push(window.location.pathname);
+    } else if (props.location.pathname.includes(routes.authRouts[0])) {
+      history.push(props.location.pathname);
     } else {
       clearStorage();
       history.push(routes.authRouts[0]);

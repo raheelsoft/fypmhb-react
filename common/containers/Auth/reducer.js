@@ -22,6 +22,18 @@ const authReducer = produce((draft, action) => {
       draft.loading = false;
       draft.error = action.error.message;
       break;
+    case constants.FORGOT_PASSWORD_REQUEST:
+      draft.loading = true;
+      draft.error = '';
+      break;
+    case constants.FORGOT_PASSWORD_SUCCESS:
+      draft.loading = false;
+      draft.error = '';
+      break;
+    case constants.FORGOT_PASSWORD_ERROR:
+      draft.loading = false;
+      draft.error = action.error.message;
+      break;
     default:
       draft.initialState = draft.initialState;
       break;

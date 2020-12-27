@@ -27,3 +27,23 @@ export function loginError(error) {
     error,
   };
 }
+
+export function forgotPasswordRequest(params) {
+  return {
+    type: constants.FORGOT_PASSWORD_REQUEST,
+    params,
+  };
+}
+
+export function forgotPasswordSuccess() {
+  return {
+    type: constants.FORGOT_PASSWORD_SUCCESS,
+  };
+}
+
+export function forgotPasswordError(error) {
+  return {
+    type: constants.FORGOT_PASSWORD_ERROR,
+    error,
+  };
+}
