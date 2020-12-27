@@ -24,7 +24,7 @@ function App(props) {
     const userData = getUserData();
 
     if (userData) {
-      history.push(routes.LANDING);
+      history.push(routes.adminRouts[0]);
     } else if (props.location.pathname.includes(routes.authRouts[0])) {
       history.push(props.location.pathname);
     } else {
@@ -41,7 +41,7 @@ function App(props) {
     <LoadingIndicator />
   ) : (
     <Switch>
-      <Route exact path={routes.LANDING} component={AppLayout} />
+      <Route exact path={routes.adminRouts[0]} component={AppLayout} />
       <Route path={routes.authRouts[0]} component={Auth} />
     </Switch>
   );

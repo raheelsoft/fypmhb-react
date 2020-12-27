@@ -14,7 +14,7 @@ export function loginRequest(params) {
 
 export function loginSuccess(payload, remember) {
   setUserData(payload.data, remember);
-  history.push(routes.LANDING);
+  history.push(routes.adminRouts[0]);
   return {
     type: constants.LOGIN_SUCCESS,
     payload,
