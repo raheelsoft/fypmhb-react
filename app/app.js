@@ -16,11 +16,13 @@ import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 
+import Firebase, { FirebaseContext } from 'common/firebase';
+
 // Import root app
 import App from 'containers/App/Loadable';
 
 // Load the favicon and the .htaccess file
-import '!file-loader?name=[name].[ext]!./images/favicon.ico';
+import '!file-loader?name=[name].[ext]!../common/images/favicon.ico';
 import 'file-loader?name=.htaccess!./.htaccess'; // eslint-disable-line import/extensions
 
 // Create redux store with history
@@ -32,14 +34,14 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App />
+        <FirebaseContext.Provider value={new Firebase()}>
+          <App />
+        </FirebaseContext.Provider>
       </ConnectedRouter>
     </Provider>,
     MOUNT_NODE,
   );
 };
-
-render();
 
 if (module.hot) {
   // Hot reloadable React components and translation json files
@@ -50,6 +52,8 @@ if (module.hot) {
     render();
   });
 }
+
+render();
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,
