@@ -17,7 +17,7 @@ import InputPassword from 'common/components/InputPassword';
 import Button from 'common/components/Button';
 import Checkbox from 'common/components/Checkbox';
 import { FirebaseContext } from 'common/firebase';
-import * as routes from 'common/appConstants';
+import * as appConstants from 'common/appConstants';
 
 import { validateEmail, validatePassword } from 'utils/validations';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -79,7 +79,12 @@ function LoginForm(props) {
         onSubmit={values => onSubmit(values)}
         validate={values => onValidate(values)}
         render={({ handleSubmit }) => (
-          <Row justify="center" style={{ minHeight: '100vh' }}>
+          <Row
+            justify="center"
+            style={{
+              minHeight: '100vh',
+            }}
+          >
             <Col xs={18} md={14} lg={10} xxl={8} style={{ margin: 'auto' }}>
               <AForm onFinish={handleSubmit}>
                 <Card
@@ -149,7 +154,7 @@ function LoginForm(props) {
                               paddingTop: '10px',
                               marginBottom: '10px',
                             }}
-                            to=""
+                            to={appConstants.authRouts[2]}
                           >
                             Forget Password
                           </Link>

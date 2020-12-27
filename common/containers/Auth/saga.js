@@ -1,8 +1,8 @@
 import { all, takeLatest, put } from 'redux-saga/effects';
-import axios from 'axios';
 
 import * as constants from './constants';
 import * as actions from './actions';
+import { message } from 'antd';
 
 function* workerLogin(action) {
   try {
@@ -18,8 +18,21 @@ function* workerLogin(action) {
   }
 }
 
+function* workerResetPassword(action) {
+  try {
+    const response = yield action.params.resetPassword(action.params.email);
+    yield put(actions.forgotPasswordSuccess());
+    message.success('Email send successfully');
+  } catch (error) {
+    yield put(actions.forgotPasswordError(error));
+  }
+}
+
 function* watchAll() {
-  yield all([takeLatest(constants.LOGIN_REQUEST, workerLogin)]);
+  yield all([
+    takeLatest(constants.LOGIN_REQUEST, workerLogin),
+    takeLatest(constants.FORGOT_PASSWORD_REQUEST, workerResetPassword),
+  ]);
 }
 
 export default watchAll;

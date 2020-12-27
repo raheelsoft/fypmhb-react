@@ -1,6 +1,8 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 
+import { resetPasswordRedirectLink } from 'common/appConstants';
+
 const prodFirebaseConfig = {
   apiKey: process.env.REACT_APP_PROD_API_KEY,
   authDomain: process.env.REACT_APP_PROD_AUTH_DOMAIN,
@@ -36,10 +38,17 @@ class Firebase {
       }
     }
 
+    this.actionCodeSettings = {
+      // After password reset, the user will be give the ability to go back
+      // to this page.
+      url: resetPasswordRedirectLink,
+      handleCodeInApp: false,
+    };
     // *** Auth API ***
 
     this.auth = app.auth();
   }
+
   createUser = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -48,7 +57,8 @@ class Firebase {
 
   signOutUser = () => this.auth.signOut();
 
-  resetPassword = email => this.auth.sendPasswordResetEmail(email);
+  resetPassword = email =>
+    this.auth.sendPasswordResetEmail(email, this.actionCodeSettings);
 
   updatePassword = password => this.auth.updatePassword(password);
 }
